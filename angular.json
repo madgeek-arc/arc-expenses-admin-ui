@@ -48,7 +48,12 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/uikit/dist/js/uikit.min.js",
+              "node_modules/uikit/dist/js/uikit-icons.min.js",
+              "src/assets/js/theme.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -73,7 +78,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "arc-expenses-admin:build"
+            "browserTarget": "arc-expenses-admin:build",
+            "port": 4200,
+            "host": "koulis.athenarc.gr"
           },
           "configurations": {
             "production": {
