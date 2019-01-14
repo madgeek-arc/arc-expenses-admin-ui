@@ -149,10 +149,10 @@ export class EditInstituteComponent extends EditResourcesComponent implements On
         } else {
             this.addInstitute();
         }
+        // console.log(JSON.stringify(this.exportFormValue(), null, 2));
     }
 
     exportFormValue() {
-        /*this.resourceForm.patchValue({organization: this.organizationForm.exportFormValue()});*/
         this.resourceForm.patchValue({
                 organization: this.organizations.filter(i => i.id === this.resourceForm.get('organization').value )[0]
         });

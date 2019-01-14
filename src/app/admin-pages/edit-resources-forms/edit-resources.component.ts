@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { isNullOrUndefined } from 'util';
 
 @Component({
     selector: 'arc-edit-resources',
@@ -35,7 +34,7 @@ export class EditResourcesComponent implements OnInit {
     }
 
     createForm() {
-        if ( !isNullOrUndefined(this.resourceFormDefinition) ) {
+        if ( this.resourceFormDefinition ) {
             this.resourceForm = this.fb.group(this.resourceFormDefinition);
         }
     }
@@ -52,7 +51,6 @@ export class EditResourcesComponent implements OnInit {
         this[dataArrayName] = [];
         tempArray.splice(i, 1);
         this[dataArrayName] = tempArray;
-        /*this[dataArrayName].splice(i, 1);*/
         console.log(JSON.stringify(this[dataArrayName]));
     }
 

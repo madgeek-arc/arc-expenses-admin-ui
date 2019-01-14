@@ -26,8 +26,6 @@ export class EditPoiComponent extends EditResourcesComponent implements OnInit, 
             delegates: ['']
         };
         super.ngOnInit();
-        this.resourceForm.get('firstname').disable();
-        this.resourceForm.get('lastname').disable();
         this.parseData();
     }
 
@@ -42,14 +40,16 @@ export class EditPoiComponent extends EditResourcesComponent implements OnInit, 
     /*  expects to receive a list of Executives
         and maybe one PersonOfInterest (in edit mode) from the input data */
     parseData() {
-        // this.showForm = false;
-        // this.resourceForm.reset();
         if (this.data && (this.data.length >= 1)) {
             this.executives = this.data[0];
 
             if (this.data[1]) {
                 Object.keys(this.resourceFormDefinition).forEach(
-                    key => this.resourceForm.patchValue({ [key]: this.data[1][key] })
+                    key => {
+                      if (this.data[1][key]) {
+                        this.resourceForm.patchValue({ [key]: this.data[1][key] });
+                      }
+                    }
                 );
                 if (this.data[1].delegates) {
                     this.data[1].delegates.forEach(
@@ -63,6 +63,8 @@ export class EditPoiComponent extends EditResourcesComponent implements OnInit, 
                 this.addDelegate();
             }
         }
+        this.resourceForm.get('firstname').disable();
+        this.resourceForm.get('lastname').disable();
     }
 
     updateSearchTerm() {
@@ -73,7 +75,7 @@ export class EditPoiComponent extends EditResourcesComponent implements OnInit, 
 
     addDelegate(delegate?: any) {
         this.searchTerm = '';
-        if ( (delegate !== undefined) && (delegate !== null) ) {
+        if ( delegate ) {
             this.delegateFormsData.push([this.executives, delegate]);
         } else {
             this.delegateFormsData.push([this.executives]);
@@ -81,18 +83,21 @@ export class EditPoiComponent extends EditResourcesComponent implements OnInit, 
     }
 
     addPOI(poi?: any) {
-        this.searchTerm = '';
-        // this.resourceForm.reset();
-        if (poi) {
-            Object.keys(this.resourceFormDefinition).forEach(
-                key => this.resourceForm.patchValue({ [key]: poi[key] })
-            );
-        } else {
-            this.resourceForm.get('firstname').enable();
-            this.resourceForm.get('lastname').enable();
-        }
-        this.resourceForm.updateValueAndValidity();
-        // this.showForm = true;
+      this.searchTerm = '';
+      this.resourceForm.get('firstname').enable();
+      this.resourceForm.get('lastname').enable();
+      if (poi) {
+        Object.keys(this.resourceFormDefinition).forEach(
+          key => {
+            if (poi[key]) {
+              this.resourceForm.patchValue({ [key]: poi[key] });
+            }
+          }
+        );
+        this.resourceForm.get('firstname').disable();
+        this.resourceForm.get('lastname').disable();
+      }
+      // this.resourceForm.updateValueAndValidity();
     }
 
     inNewPOIMode(newPOIMode: boolean) {
@@ -114,7 +119,7 @@ export class EditPoiComponent extends EditResourcesComponent implements OnInit, 
         }
         this.resourceForm.patchValue({delegates: delegateFormArrayValue});
         if (this.resourceForm.valid) {
-            return this.resourceForm.value;
+            return this.resourceForm.getRawValue();
         } else {
             return '';
         }

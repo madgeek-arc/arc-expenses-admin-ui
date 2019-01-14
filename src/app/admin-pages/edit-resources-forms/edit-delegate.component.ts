@@ -9,7 +9,6 @@ import { Executive } from '../../domain/operation';
     styleUrls: ['./edit-resources.component.scss']
 })
 export class EditDelegateComponent extends EditResourcesComponent implements OnInit, OnChanges {
-    showForm: boolean;
     newDelegateMode: boolean;
     searchTerm: string;
 
@@ -23,8 +22,6 @@ export class EditDelegateComponent extends EditResourcesComponent implements OnI
             hidden:  ['']
         };
         super.ngOnInit();
-        this.resourceForm.get('firstname').disable();
-        this.resourceForm.get('lastname').disable();
         this.parseData();
     }
 
@@ -39,19 +36,22 @@ export class EditDelegateComponent extends EditResourcesComponent implements OnI
     /*  expects to receive a list of Executives
         and maybe one Delegate (in edit mode) from the input data */
     parseData() {
-        // this.resourceForm.reset();
-        // this.showForm = false;
         if (this.data && (this.data.length >= 1)) {
             this.executives = this.data[0];
 
             if (this.data[1]) {
                 Object.keys(this.resourceFormDefinition).forEach(
-                    key => this.resourceForm.patchValue({ [key]: this.data[1][key] })
+                    key => {
+                      if (this.data[1][key]) {
+                        this.resourceForm.patchValue({ [key]: this.data[1][key] });
+                      }
+                    }
                 );
-                // this.showForm = true;
                 this.resourceForm.updateValueAndValidity();
             }
         }
+        this.resourceForm.get('firstname').disable();
+        this.resourceForm.get('lastname').disable();
     }
 
     updateSearchTerm() {
@@ -61,17 +61,21 @@ export class EditDelegateComponent extends EditResourcesComponent implements OnI
     }
 
     addDelegate(delegate?: any) {
-        this.searchTerm = '';
-        if (delegate) {
-            Object.keys(this.resourceFormDefinition).forEach(
-                key => this.resourceForm.patchValue({ [key]: delegate[key] })
-            );
-        } else {
-            this.resourceForm.get('firstname').enable();
-            this.resourceForm.get('lastname').enable();
-        }
-        // this.showForm = true;
-        this.resourceForm.updateValueAndValidity();
+      this.searchTerm = '';
+      this.resourceForm.get('firstname').enable();
+      this.resourceForm.get('lastname').enable();
+      if (delegate) {
+        Object.keys(this.resourceFormDefinition).forEach(
+          key => {
+            if (delegate[key]) {
+              this.resourceForm.patchValue({[ key ]: delegate[ key ]});
+            }
+          }
+        );
+        this.resourceForm.get('firstname').disable();
+        this.resourceForm.get('lastname').disable();
+      }
+      // this.resourceForm.updateValueAndValidity();
     }
 
     inNewDelegateMode(newDelegateMode: boolean) {
@@ -86,7 +90,7 @@ export class EditDelegateComponent extends EditResourcesComponent implements OnI
 
     exportFormValue() {
         if (this.resourceForm.valid) {
-            return this.resourceForm.value;
+            return this.resourceForm.getRawValue();
         } else {
             return '';
         }
