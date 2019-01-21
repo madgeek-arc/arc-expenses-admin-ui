@@ -17,17 +17,20 @@
                         </li>
                         <!-- TODO:: ADD OPERATORS WHEN DECIDED -->
                         <li *ngIf="isAdmin" class="uk-parent" [routerLinkActive]="['uk-active']">
-                          <a [routerLink]="['resources/projects']">
+                          <!--<a [routerLink]="['resources/projects']">-->
+                          <a (click)="routeToPage('resources/projects')">
                             Έργα
                           </a>
                         </li>
                         <li *ngIf="isAdmin" class="uk-parent" [routerLinkActive]="['uk-active']">
-                          <a [routerLink]="['resources/institutes']">
+                          <!--<a [routerLink]="['resources/institutes']">-->
+                          <a (click)="routeToPage('resources/institutes')">
                             Ινστιτούτα
                           </a>
                         </li>
                         <li *ngIf="isAdmin" class="uk-parent" [routerLinkActive]="['uk-active']">
-                          <a [routerLink]="['resources/organizations']">
+                          <!--<a [routerLink]="['resources/organizations']">-->
+                          <a (click)="routeToPage('resources/organizations')">
                             Οργανισμοί
                           </a>
                         </li>
