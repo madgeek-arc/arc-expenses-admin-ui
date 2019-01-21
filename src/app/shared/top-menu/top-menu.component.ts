@@ -3,6 +3,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ContactUsMail } from '../../domain/operation';
 import { ManageUserService } from '../../services/manage-user.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 declare const UIkit: any;
@@ -17,6 +18,7 @@ export class TopMenuComponent implements OnInit, DoCheck {
   loggedIn = false;
   isAdmin = false;
   isOperator = false;
+  selectedType: string;
 
   contactForm: FormGroup;
   modalError: string;
@@ -24,11 +26,15 @@ export class TopMenuComponent implements OnInit, DoCheck {
 
   constructor(private authService: AuthenticationService,
               private userService: ManageUserService,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder,
+              private route: ActivatedRoute) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.checkSelectedType();
+  }
 
   ngDoCheck() {
+      this.checkSelectedType();
       this.isUserLoggedIn();
       this.isUserAdmin();
       this.getUserName();
@@ -45,8 +51,16 @@ export class TopMenuComponent implements OnInit, DoCheck {
     this.authService.logout();
   }
 
+  checkSelectedType() {
+    this.selectedType = '';
+    if (window.location.pathname.includes('resources')) {
+      this.selectedType = window.location.pathname.split('/')[2];
+    }
+  }
+
   routeToPage(route: string) {
-      window.location.href = route;
+    this.selectedType = route;
+    window.location.href = 'resources/' + route;
   }
 
   isUserLoggedIn() {

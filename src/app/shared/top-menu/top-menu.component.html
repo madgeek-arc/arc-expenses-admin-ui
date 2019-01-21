@@ -16,21 +16,21 @@
                             </a>
                         </li>
                         <!-- TODO:: ADD OPERATORS WHEN DECIDED -->
-                        <li *ngIf="isAdmin" class="uk-parent" [routerLinkActive]="['uk-active']">
+                        <li *ngIf="isAdmin" class="uk-parent {{ (selectedType === 'projects') ? 'uk-active' : '' }}">
                           <!--<a [routerLink]="['resources/projects']">-->
-                          <a (click)="routeToPage('resources/projects')">
+                          <a (click)="routeToPage('projects')">
                             Έργα
                           </a>
                         </li>
-                        <li *ngIf="isAdmin" class="uk-parent" [routerLinkActive]="['uk-active']">
+                        <li *ngIf="isAdmin" class="uk-parent {{ (selectedType === 'institutes') ? 'uk-active' : '' }}">
                           <!--<a [routerLink]="['resources/institutes']">-->
-                          <a (click)="routeToPage('resources/institutes')">
+                          <a (click)="routeToPage('institutes')">
                             Ινστιτούτα
                           </a>
                         </li>
-                        <li *ngIf="isAdmin" class="uk-parent" [routerLinkActive]="['uk-active']">
+                        <li *ngIf="isAdmin" class="uk-parent {{ (selectedType === 'organizations') ? 'uk-active' : '' }}">
                           <!--<a [routerLink]="['resources/organizations']">-->
-                          <a (click)="routeToPage('resources/organizations')">
+                          <a (click)="routeToPage('organizations')">
                             Οργανισμοί
                           </a>
                         </li>
