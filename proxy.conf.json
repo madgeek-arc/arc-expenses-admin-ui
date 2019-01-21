@@ -1,6 +1,6 @@
 {
   "/arc-expenses-service/*": {
-    "target": "https://aleka.athenarc.gr",
+    "target": "https://koulis.athenarc.gr:8080",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
