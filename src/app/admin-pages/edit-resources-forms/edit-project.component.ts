@@ -113,7 +113,26 @@ export class EditProjectComponent extends EditResourcesComponent implements OnIn
         if (this.inEditMode) {
             this.updateProject();
         } else {
-            this.addProject();
+          this.errorMessage = '';
+          this.successMessage = '';
+          this.showSpinner = true;
+          this.projectService.getProjectById(this.resourceForm.get('id').value).subscribe(
+            proj => {
+                if (proj) {
+                  this.errorMessage = 'Το id χρησιμοποιείται ήδη. Παρακαλούμε επιλέξτε κάποιο άλλο.';
+                  this.showSpinner = false;
+                  window.scrollTo(1, 1);
+                } else {
+                  this.addProject();
+                }
+              },
+            err => {
+                console.log(err);
+                this.errorMessage = 'Παρουσιάστηκε πρόβλημα κατά την αποθήκευση των αλλαγών.';
+                window.scrollTo(1, 1);
+                this.showSpinner = false;
+            }
+          );
         }
         // console.log(JSON.stringify(this.exportFormValue(), null, 2));
     }
