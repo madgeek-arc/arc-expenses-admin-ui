@@ -20,6 +20,7 @@ export class EditProjectComponent extends EditResourcesComponent implements OnIn
     executives: Executive[] = [];
     organizations: Organization[] = [];
     institutes: Institute[] = [];
+    exportedForm: any;
 
     @ViewChild('scientificCoordinatorForm') scientificCoordinatorForm: EditPoiComponent;
     scientificCoordinatorFormData: any[] = [];
@@ -114,26 +115,31 @@ export class EditProjectComponent extends EditResourcesComponent implements OnIn
         if (this.inEditMode) {
             this.updateProject();
         } else {
-          this.errorMessage = '';
-          this.successMessage = '';
-          this.showSpinner = true;
-          this.projectService.getProjectById(this.resourceForm.get('id').value).subscribe(
-            proj => {
-                if (proj) {
-                  this.errorMessage = 'Το id χρησιμοποιείται ήδη. Παρακαλούμε επιλέξτε κάποιο άλλο.';
-                  this.showSpinner = false;
+	  this.exportedForm = this.exportFormValue();
+	  if (this.exportedForm) {
+	    this.errorMessage = '';
+            this.successMessage = '';
+            this.showSpinner = true;
+	    const curID = this.resourceForm.get('id').value;
+            this.projectService.getProjectById(curID).subscribe(
+              proj => {
+                  if (proj) {
+                    this.errorMessage = 'Το id χρησιμοποιείται ήδη. Παρακαλούμε επιλέξτε κάποιο άλλο.';
+                    this.showSpinner = false;
+                    window.scrollTo(1, 1);
+                  } else {
+		    this.showSpinner = false;
+                    this.addProject();
+                  }
+                },
+              err => {
+                  console.log(err);
+                  this.errorMessage = 'Παρουσιάστηκε πρόβλημα κατά την αποθήκευση των αλλαγών.';
                   window.scrollTo(1, 1);
-                } else {
-                  this.addProject();
-                }
-              },
-            err => {
-                console.log(err);
-                this.errorMessage = 'Παρουσιάστηκε πρόβλημα κατά την αποθήκευση των αλλαγών.';
-                window.scrollTo(1, 1);
-                this.showSpinner = false;
-            }
-          );
+                  this.showSpinner = false;
+              }
+            );
+	   }
         }
         // console.log(JSON.stringify(this.exportFormValue(), null, 2));
     }
@@ -174,12 +180,12 @@ export class EditProjectComponent extends EditResourcesComponent implements OnIn
     }
 
     addProject() {
-        const project = this.exportFormValue();
-        if (project !== '') {
+        // const project = this.exportFormValue();
+        // if (project !== '') {
             this.errorMessage = '';
             this.successMessage = '';
             this.showSpinner = true;
-            this.projectService.addProject(project).subscribe(
+            this.projectService.addProject(this.exportedForm).subscribe(
                 proj => console.log(JSON.stringify(proj)),
                 err => {
                     console.log(err);
@@ -195,7 +201,7 @@ export class EditProjectComponent extends EditResourcesComponent implements OnIn
                     window.location.href = 'resources/projects';
                 }
             );
-        }
+        // }
     }
 
     updateProject() {
