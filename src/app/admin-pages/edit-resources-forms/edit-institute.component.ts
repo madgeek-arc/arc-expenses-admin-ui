@@ -192,7 +192,7 @@ export class EditInstituteComponent extends EditResourcesComponent implements On
                     this.successMessage = 'Το ινστιτούτο προστέθηκε επιτυχώς.';
                     this.showSpinner = false;
                     window.scrollTo(1, 1);
-                    window.location.href = window.location.origin + '/resources/institutes';
+                    window.location.href = 'resources/institutes';
                 }
             );
         }
@@ -217,7 +217,7 @@ export class EditInstituteComponent extends EditResourcesComponent implements On
                     this.successMessage = 'Το ινστιτούτο ενημερώθηκε επιτυχώς.';
                     this.showSpinner = false;
                     window.scrollTo(1, 1);
-                    window.location.href = window.location.origin + '/resources/institutes';
+                    window.location.href = 'resources/institutes';
                 }
             );
         }

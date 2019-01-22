@@ -54,7 +54,7 @@ export class TopMenuComponent implements OnInit, DoCheck {
   checkSelectedType() {
     this.selectedType = '';
     if (window.location.pathname.includes('resources')) {
-      this.selectedType = window.location.pathname.split('/')[2];
+      this.selectedType = window.location.pathname.split('/')[3];
     }
   }
 

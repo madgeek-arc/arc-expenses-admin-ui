@@ -82,7 +82,7 @@
                 <div class="uk-width-1-1">
                     <select class="uk-select" id="{{id}}_inst" formControlName="institute">
                         <option value="">-- επιλέξτε ινστιτούτο/μονάδα --</option>
-                        <option *ngFor="let inst of institutes" value="{{inst.id}}">{{ inst.name }}</option>
+                        <option *ngFor="let inst of institutes" value="{{inst.id}}">{{ inst.name }} ({{ inst.id }})</option>
                     </select>
                 </div>
             </div>

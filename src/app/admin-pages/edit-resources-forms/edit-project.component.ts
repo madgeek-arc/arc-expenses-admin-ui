@@ -172,7 +172,7 @@ export class EditProjectComponent extends EditResourcesComponent implements OnIn
                     this.successMessage = 'Το έργο προστέθηκε επιτυχώς.';
                     this.showSpinner = false;
                     window.scrollTo(1, 1);
-                    window.location.href = window.location.origin + '/resources/projects';
+                    window.location.href = 'resources/projects';
                 }
             );
         }
@@ -197,7 +197,7 @@ export class EditProjectComponent extends EditResourcesComponent implements OnIn
                     this.successMessage = 'Το έργο ενημερώθηκε επιτυχώς.';
                     this.showSpinner = false;
                     window.scrollTo(1, 1);
-                    window.location.href = window.location.origin + '/resources/projects';
+                    window.location.href = 'resources/projects';
                 }
             );
         }

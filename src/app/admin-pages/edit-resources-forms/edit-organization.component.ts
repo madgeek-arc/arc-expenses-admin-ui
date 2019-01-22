@@ -162,7 +162,7 @@ export class EditOrganizationComponent extends EditResourcesComponent implements
                     this.successMessage = 'Ο οργανισμός προστέθηκε επιτυχώς.';
                     this.showSpinner = false;
                     window.scrollTo(1, 1);
-                    window.location.href = window.location.origin + '/resources/organizations';
+                    window.location.href = 'resources/organizations';
                 }
             );
         }
@@ -186,7 +186,7 @@ export class EditOrganizationComponent extends EditResourcesComponent implements
                     this.successMessage = 'Ο οργανισμός ενημερώθηκε επιτυχώς.';
                     this.showSpinner = false;
                     window.scrollTo(1, 1);
-                    window.location.href = window.location.origin + '/resources/organizations';
+                    window.location.href = 'resources/organizations';
                 }
             );
         }
