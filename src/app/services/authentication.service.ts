@@ -21,7 +21,7 @@ export class AuthenticationService {
                 private http: HttpClient) { }
 
     private apiUrl: string = environment.API_ENDPOINT;
-    private loginUrl: string = environment.API_ENDPOINT + '/user/idp_login';
+    private loginUrl: string = environment.API_ENDPOINT + '/user/idp_login?returnTo=' + window.location.origin + '/admin';
 
     // store the URL so we can redirect after logging in
     public redirectUrl: string;
