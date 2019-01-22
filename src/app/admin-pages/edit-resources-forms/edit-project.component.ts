@@ -72,6 +72,7 @@ export class EditProjectComponent extends EditResourcesComponent implements OnIn
                 Object.keys(this.resourceFormDefinition).forEach(
                     key => this.resourceForm.patchValue({ [key]: this.data[2][key] })
                 );
+                this.resourceForm.get('id').disable();
                 if (this.data[2].institute) {
                     this.resourceForm.patchValue({institute: this.data[2].institute.id});
                 }
@@ -150,7 +151,7 @@ export class EditProjectComponent extends EditResourcesComponent implements OnIn
         }
         this.resourceForm.patchValue({operator: operators});
         if (this.resourceForm.valid) {
-            return this.resourceForm.value;
+            return this.resourceForm.getRawValue();
         } else {
             this.errorMessage = 'Παρακαλώ συμπληρώστε όλα τα απαιτούμενα πεδία.';
             window.scrollTo(1, 1);

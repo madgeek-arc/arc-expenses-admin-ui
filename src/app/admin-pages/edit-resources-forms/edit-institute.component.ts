@@ -81,6 +81,7 @@ export class EditInstituteComponent extends EditResourcesComponent implements On
                     key => this.resourceForm
                         .patchValue({ [key]: this.data[2][key] })
                 );
+                this.resourceForm.get('id').disable();
                 if (this.data[2].organization) {
                     this.resourceForm.patchValue({organization: this.data[2].organization.id});
                 }
@@ -165,7 +166,7 @@ export class EditInstituteComponent extends EditResourcesComponent implements On
         this.resourceForm.patchValue({travelManager: this.travelManagerForm.exportFormValue()});
         this.resourceForm.patchValue({diataktis: this.diataktisForm.exportFormValue()});
         if (this.resourceForm.valid) {
-            return this.resourceForm.value;
+            return this.resourceForm.getRawValue();
         } else {
             this.errorMessage = 'Παρακαλώ συμπληρώστε όλα τα απαιτούμενα πεδία.';
             window.scrollTo(1, 1);
