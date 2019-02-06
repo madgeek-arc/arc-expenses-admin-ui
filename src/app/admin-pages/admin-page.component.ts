@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AnchorItem } from '../shared/dynamic-loader-anchor-components/anchor-item';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectsListComponent } from './resources-lists/projects-list.component';
 import { InstitutesListComponent } from './resources-lists/institutes-list.component';
 import { OrganizationsListComponent } from './resources-lists/organizations-list.component';
+import { ResourcesLoaderComponent } from './resources-dynamic-load/resources-loader.component';
 
 @Component({
     selector: 'arc-admin-page',
@@ -18,13 +19,21 @@ export class AdminPageComponent implements OnInit {
     resourceType: string;
     resource: any;
 
+    @ViewChild('resourceListComponent') resourceListComponent: ResourcesLoaderComponent;
+
     constructor(private route: ActivatedRoute, private router: Router) {}
 
     ngOnInit() {
-        if (this.route.snapshot.paramMap.has('type')) {
+      this.route.paramMap.subscribe(params => {
+        if (params.has('type')) {
+          this.resourceType = params.get('type');
+          this.showResourceListComponent();
+        }
+      });
+        /*if (this.route.snapshot.paramMap.has('type')) {
             this.resourceType = this.route.snapshot.paramMap.get('type');
             this.showResourceListComponent();
-        }
+        }*/
     }
 
     showResourceListComponent() {

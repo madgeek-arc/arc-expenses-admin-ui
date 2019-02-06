@@ -10,8 +10,7 @@ declare const UIkit: any;
 
 @Component({
   selector: 'arc-top-menu',
-  templateUrl: './top-menu.component.html',
-  styleUrls: ['./top-menu.component.scss']
+  templateUrl: './top-menu.component.html'
 })
 export class TopMenuComponent implements OnInit, DoCheck {
 
@@ -58,9 +57,8 @@ export class TopMenuComponent implements OnInit, DoCheck {
     }
   }
 
-  routeToPage(route: string) {
-    this.selectedType = route;
-    window.location.href = 'resources/' + route;
+  goToArcExpenses() {
+    window.location.href = window.location.origin;
   }
 
   isUserLoggedIn() {

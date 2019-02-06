@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { deleteCookie, getCookie } from '../domain/cookieUtils';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Attachment } from '../domain/operation';
-import { catchError, tap } from 'rxjs/operators';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 const headerOptions = {
@@ -86,27 +83,19 @@ export class AuthenticationService {
                     userInfo => {
                         console.log('User is still logged in');
                         console.log(userInfo);
-                        if ( (sessionStorage.getItem('userInfo') === undefined) ||
-                             (sessionStorage.getItem('userInfo') === null) ||
+                        if ( (sessionStorage.getItem('userInfo') == null) ||
                              (this.getUserProp('email') === null ) ) {
-                            console.log('received null userInfo');
-                            this.isLoggedIn = false;
-                            this.removeUserProperties();
-                            deleteCookie('arc_currentUser');
-                            this.router.navigate(['/home']);
+                          console.log('cant find userInfo in sessionStorage - logging out');
+                          this.logout();
                         }
                     },
                     () => {
                         console.log(`Something went wrong -- I'm logging out!`);
-                        /*this.isLoggedIn = false;
-                        this.removeUserProperties();
-                        deleteCookie('arc_currentUser');
-                        this.router.navigate(['/home']);*/
                         this.logout();
                     }
                 );
             }, 1000 * 60 * 5);
-            /*console.log('email is', this.getUserProp('email'));*/
+
             if ( !sessionStorage.getItem('userInfo') ) {
                 console.log(`session.userInfo wasn't found --> logging in via arc-service!`);
                 this.http.get(this.apiUrl + '/user/getUserInfo', headerOptions).subscribe(
@@ -114,24 +103,15 @@ export class AuthenticationService {
                         console.log(JSON.stringify(userInfo));
                         if ( userInfo ) {
                             this.isLoggedIn = true;
-                            // TODO: ALWAYS RESTORE ΒEFORE COMMIT!!
-                            if (userInfo['user'] && userInfo['user']['email'] &&
-                                (userInfo['user']['email'] === 'kkaramal@ipet.athena-innovation.gr')) {
-                                sessionStorage.setItem('role', '[{"authority":"ROLE_EXECUTIVE"}]');
-                            } else {
-                                sessionStorage.setItem('role', JSON.stringify(userInfo['role']));
-                                // sessionStorage.setItem('role', '[{"authority":"ROLE_ADMIN"}]');
-                            }
+                            sessionStorage.setItem('role', JSON.stringify(userInfo['role']));
+                            // sessionStorage.setItem('role', '[{"authority":"ROLE_ADMIN"}]');
                             this.setUserProperties(userInfo['user']);
                         }
                     },
                     error => {
-                        console.log('login error!');
-                        console.log(error);
-                        this.isLoggedIn = false;
-                        this.removeUserProperties();
-                        deleteCookie('arc_currentUser');
-                        this.router.navigate(['/home']);
+                      console.log('login error or coming back after closing the browser!');
+                      console.log(error);
+                      this.loginWithState();
                     },
                     () => {
                         if ( sessionStorage.getItem('userInfo') ) {
@@ -139,36 +119,30 @@ export class AuthenticationService {
                                                              `${this.getUserProp('lastname')}, ` +
                                                              `${this.getUserProp('email')}`);
 
-                            if ( (this.getUserProp('email') === undefined) || (this.getUserProp('email') === null) ) {
-                                this.logout();
-                            } else if ( (this.getUserProp('firstname') === undefined) ||
-                                        (this.getUserProp('firstname') === null) ||
-                                        (this.getUserProp('firstname') === 'null') ||
-                                        (this.getUserProp('lastname') === undefined) ||
-                                        (this.getUserProp('lastname') === null) ||
-                                        (this.getUserProp('lastname') === 'null') ) {
+                          if ( (this.getUserProp('email') == null) ) {
+                            this.logout();
 
-                                console.log('in tryLogin navigating to sign-up');
-                                this.router.navigate(['/sign-up']);
+                          } else if ( (this.getUserProp('firstname') === null) ||
+                            (this.getUserProp('lastname') === null) ) {
 
-                            } else {
-                                let state: string;
-                                if ( sessionStorage.getItem('state.location') ) {
-                                    state = sessionStorage.getItem('state.location');
-                                    sessionStorage.removeItem('state.location');
-                                    console.log(`cleared state.location - returning to state: ${state}`);
-                                    this.router.navigateByUrl(state);
-                                }
-                            }
+                            console.log('in tryLogin navigating to sign-up');
+                            this.router.navigate(['/sign-up']);
+
+                          } else {
+                              let state: string;
+                              if ( sessionStorage.getItem('state.location') ) {
+                                  state = sessionStorage.getItem('state.location');
+                                  sessionStorage.removeItem('state.location');
+                                  console.log(`cleared state.location - returning to state: ${state}`);
+                                  this.router.navigateByUrl(state);
+                              }
+
+                          }
                         }
                     }
                 );
             }
-        } /*else if (getCookie('arc_currentUser') && (getCookie('arc_currentUser') === '')) {
-            console.log('empty cookie!');
-            window.alert('Δεν κατέστη δυνατή η ταυτοποίηση του χρήστη. Παρακαλώ προσπαθήστε ξανά.');
-        }*/
-
+        }
     }
 
     public getIsUserLoggedIn() {
@@ -177,28 +151,28 @@ export class AuthenticationService {
     }
 
     public getUserRole() {
-        if ( this.getIsUserLoggedIn() &&
-             sessionStorage.getItem('role') &&
-             (sessionStorage.getItem('role') !== 'null') ) {
+      if ( this.getIsUserLoggedIn() &&
+        (sessionStorage.getItem('role') != null) &&
+        (sessionStorage.getItem('role') !== 'null') ) {
 
-            return JSON.parse(sessionStorage.getItem('role'));
-        } else {
-            return [];
-        }
+        return JSON.parse(sessionStorage.getItem('role'));
+      } else {
+        return [];
+      }
     }
 
     getUserProp(property: string) {
-        if (sessionStorage.getItem('userInfo')) {
-            const user = JSON.parse(sessionStorage.getItem('userInfo'));
-            if ( user && user[property] && (user[property] !== 'null') ) {
+      if (sessionStorage.getItem('userInfo')) {
+        const user = JSON.parse(sessionStorage.getItem('userInfo'));
+        if ( (user[property] != null) && (user[property] !== '') && (user[property] !== 'null') ) {
 
-                if ( (property === 'immediateEmails') || (property === 'receiveEmails') ) {
-                    return (user[property] === 'true');
-                }
-                return user[property];
-            }
+          if ( (property === 'immediateEmails') || (property === 'receiveEmails') ) {
+            return (user[property] === 'true');
+          }
+          return user[property];
         }
-        return null;
+      }
+      return null;
     }
 
     setUserProperties (userInfo: any) {
