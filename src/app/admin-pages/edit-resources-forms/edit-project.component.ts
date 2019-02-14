@@ -41,8 +41,8 @@ export class EditProjectComponent extends EditResourcesComponent implements OnIn
             parentProject: [''],
             scientificCoordinator: ['', Validators.required],
             operator: ['', Validators.required],
-            startDate: ['', Validators.required],
-            endDate: ['', Validators.required],
+            startDate: [''],
+            endDate: [''],
             totalCost: [''],
             scientificCoordinatorAsDiataktis: ['']
         };
@@ -112,34 +112,39 @@ export class EditProjectComponent extends EditResourcesComponent implements OnIn
     }
 
     saveChanges() {
+      /* SET DEFAULT PROJECT COST = 0 */
+        if (!this.resourceForm.get('totalCost').value ||
+            isNaN(this.resourceForm.get('totalCost').value.trim())) {
+          this.resourceForm.get('totalCost').setValue('0');
+        }
         if (this.inEditMode) {
             this.updateProject();
         } else {
-	  this.exportedForm = this.exportFormValue();
-	  if (this.exportedForm) {
-	    this.errorMessage = '';
-            this.successMessage = '';
-            this.showSpinner = true;
-	    const curID = this.resourceForm.get('id').value;
-            this.projectService.getProjectById(curID).subscribe(
-              proj => {
-                  if (proj) {
-                    this.errorMessage = 'Το id χρησιμοποιείται ήδη. Παρακαλούμε επιλέξτε κάποιο άλλο.';
-                    this.showSpinner = false;
-                    window.scrollTo(1, 1);
-                  } else {
-		    this.showSpinner = false;
-                    this.addProject();
-                  }
-                },
-              err => {
-                  console.log(err);
-                  this.errorMessage = 'Παρουσιάστηκε πρόβλημα κατά την αποθήκευση των αλλαγών.';
-                  window.scrollTo(1, 1);
-                  this.showSpinner = false;
-              }
-            );
-	   }
+          this.exportedForm = this.exportFormValue();
+          if (this.exportedForm) {
+            this.errorMessage = '';
+                  this.successMessage = '';
+                  this.showSpinner = true;
+            const curID = this.resourceForm.get('id').value;
+                  this.projectService.getProjectById(curID).subscribe(
+                    proj => {
+                        if (proj) {
+                          this.errorMessage = 'Το id χρησιμοποιείται ήδη. Παρακαλούμε επιλέξτε κάποιο άλλο.';
+                          this.showSpinner = false;
+                          window.scrollTo(1, 1);
+                        } else {
+              this.showSpinner = false;
+                          this.addProject();
+                        }
+                      },
+                    err => {
+                        console.log(err);
+                        this.errorMessage = 'Παρουσιάστηκε πρόβλημα κατά την αποθήκευση των αλλαγών.';
+                        window.scrollTo(1, 1);
+                        this.showSpinner = false;
+                    }
+                  );
+           }
         }
         // console.log(JSON.stringify(this.exportFormValue(), null, 2));
     }
