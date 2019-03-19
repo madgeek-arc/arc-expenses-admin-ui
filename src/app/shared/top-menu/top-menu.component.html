@@ -62,12 +62,12 @@
                             <div *ngIf="loggedIn" uk-dropdown>
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li>
-                                      <a (click)="logout()">
-                                        Έξοδος</a>
+                                      <a (click) = goToArcExpenses()>
+                                        Πλατφόρμα διαχείρισης αιτημάτων</a>
                                     </li>
                                     <li>
-                                      <a (click) = goToArcExpenses()>
-                                        Επιστροφή στην πλατφόρμα διαχείρισης αιτημάτων</a>
+                                      <a (click)="logout()">
+                                        Έξοδος</a>
                                     </li>
                                 </ul>
                             </div>
@@ -152,7 +152,7 @@
           <ul class="uk-nav" style="color: white !important;">
             <li *ngIf="isAdmin">
               <a (click) = goToArcExpenses()>
-                Επιστροφή στην πλατφόρμα διαχείρισης αιτημάτων
+                Πλατφόρμα διαχείρισης αιτημάτων
               </a>
             </li>
             <li class="uk-parent">

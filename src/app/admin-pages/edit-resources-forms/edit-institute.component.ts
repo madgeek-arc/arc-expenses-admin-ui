@@ -41,7 +41,7 @@ export class EditInstituteComponent extends EditResourcesComponent implements On
         this.resourceFormDefinition = {
             id: ['', Validators.required],
             name: ['', Validators.required],
-            organization: ['', Validators.required],
+            organizationId: ['', Validators.required],
             director: ['', Validators.required],
             accountingRegistration: ['', Validators.required],
             accountingPayment: ['', Validators.required],
@@ -82,8 +82,8 @@ export class EditInstituteComponent extends EditResourcesComponent implements On
                         .patchValue({ [key]: this.data[2][key] })
                 );
                 this.resourceForm.get('id').disable();
-                if (this.data[2].organization) {
-                    this.resourceForm.patchValue({organization: this.data[2].organization.id});
+                if (this.data[2].organizationId) {
+                    this.resourceForm.patchValue({organizationId: this.data[2].organizationId});
                 }
                 if (this.data[2].director) {
                     this.instDirectorFormData = [this.executives, this.data[2].director];
@@ -118,7 +118,7 @@ export class EditInstituteComponent extends EditResourcesComponent implements On
                     this.resourceForm.get('diataktis').setValue('');
                 }
             } else {
-                this.resourceForm.patchValue({organization: 'ARC'});
+                this.resourceForm.patchValue({organizationId: 'ARC'});
                 this.addPOI('instDirectorFormData');
                 this.addPOI('accountingRegistrationFormData');
                 this.addPOI('accountingPaymentFormData');
@@ -154,9 +154,6 @@ export class EditInstituteComponent extends EditResourcesComponent implements On
     }
 
     exportFormValue() {
-        this.resourceForm.patchValue({
-                organization: this.organizations.filter(i => i.id === this.resourceForm.get('organization').value )[0]
-        });
         this.resourceForm.patchValue({director: this.instDirectorForm.exportFormValue()});
         this.resourceForm.patchValue({accountingRegistration: this.accountingRegistrationForm.exportFormValue()});
         this.resourceForm.patchValue({accountingPayment: this.accountingPaymentForm.exportFormValue()});

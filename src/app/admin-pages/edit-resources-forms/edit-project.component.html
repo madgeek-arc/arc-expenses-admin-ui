@@ -39,7 +39,8 @@
             <label class="uk-form-label" for="startDate_{{ id }}">Ημ/νία έναρξης</label>
             <div class="uk-form-controls">
                 <div class="uk-width-1-1">
-                    <input type="text" id="startDate_{{ id }}" class="uk-input" formControlName="startDate" />
+                    <input type="date" id="startDate_{{ id }}" placeholder="YYYY-MM-DD"
+                           class="uk-input" formControlName="startDate" />
                 </div>
             </div>
         </div>
@@ -47,7 +48,8 @@
             <label class="uk-form-label" for="endDate_{{ id }}">Ημ/νία ολοκλήρωσης</label>
             <div class="uk-form-controls">
                 <div class="uk-width-1-1">
-                    <input type="text" id="endDate_{{ id }}" class="uk-input" formControlName="endDate"/>
+                    <input type="date" id="endDate_{{ id }}" placeholder="YYYY-MM-DD"
+                           class="uk-input" formControlName="endDate"/>
                 </div>
             </div>
         </div>
@@ -80,7 +82,7 @@
             <label class="uk-form-label" for="{{id}}_inst">Ινστιτούτο/Μονάδα (*)</label>
             <div class="uk-form-controls">
                 <div class="uk-width-1-1">
-                    <select class="uk-select" id="{{id}}_inst" formControlName="institute">
+                    <select class="uk-select" id="{{id}}_inst" formControlName="instituteId">
                         <option value="">-- επιλέξτε ινστιτούτο/μονάδα --</option>
                         <option *ngFor="let inst of institutes" value="{{inst.id}}">{{ inst.name }} ({{ inst.id }})</option>
                     </select>
@@ -111,21 +113,13 @@
                 </div>
             </div>
         </div>
-        <!--<div class="uk-margin">
-            <label class="uk-form-label" for="sciCoorAsDiat_{{ id }}">Θα δρα ως διατάκτης<br>>για μικρά ποσά (< €2500)</label>
-            <div class="uk-form-controls">
-                <div class="uk-width-1-1">
-                    <input type="checkbox" id="sciCoorAsDiat_{{ id }}" class="uk-checkbox" formControlName="scientificCoordinatorAsDiataktis"/>
-                </div>
-            </div>
-        </div>-->
         <hr>
         <div class="uk-margin">
             <label class="uk-form-label">Χειριστές (*)</label>
             <div class="uk-form-controls">
                 <div *ngIf="operatorFormsData.length > 0" class="uk-margin-small-top">
                     <div *ngFor="let op of operatorFormsData; let i = index;"
-                         style="border: 1px dotted mediumblue" class="uk-padding-small">
+                         style="border: 1px dotted mediumblue" class="uk-padding-small uk-margin-small-top">
                         <div>
                             <a class="uk-float-right uk-margin-small-top" uk-icon="icon: close"
                                (click)="removeForm(i, 'operatorFormsData')"></a>

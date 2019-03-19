@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Project, Vocabulary } from '../../domain/operation';
+import { Project } from '../../domain/operation';
 import { ManageProjectService } from '../../services/manage-project.service';
 import { SearchResults } from '../../domain/extraClasses';
 

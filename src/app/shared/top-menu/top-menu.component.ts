@@ -58,7 +58,8 @@ export class TopMenuComponent implements OnInit, DoCheck {
   }
 
   goToArcExpenses() {
-    window.location.href = window.location.origin;
+    // window.location.href = window.location.origin;
+    window.open(window.location.origin, '_blank');
   }
 
   isUserLoggedIn() {

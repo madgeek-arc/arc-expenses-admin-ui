@@ -29,7 +29,7 @@ import { ManageResourcesService } from './services/manage-resources.service';
 import { HelpContentService } from './shared/help-content/help-content.service';
 import { AuthenticationInterceptor } from './services/authentication-interceptor';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, DatePipe, registerLocaleData } from '@angular/common';
 import localeEL from '@angular/common/locales/el';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -58,6 +58,7 @@ registerLocaleData(localeEL);
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
     SharedComponentsModule,
@@ -75,7 +76,8 @@ registerLocaleData(localeEL);
     ManageProjectService,
     ManageUserService,
     AuthenticationService,
-    AuthGuardService
+    AuthGuardService,
+    DatePipe
   ],
   entryComponents: [
     EditResourcesComponent,
