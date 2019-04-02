@@ -17,7 +17,7 @@
                         </li>
                         <!-- TODO:: ADD OPERATORS WHEN DECIDED -->
                         <li *ngIf="isAdmin" class="uk-parent" [routerLinkActive]="['uk-active']">
-                          <a [routerLink]="['resources', 'projects']">
+                          <a [routerLink]="['resources', 'projects']" [queryParams] = "{ page: 0, itemsPerPage: 10 }">
                             Έργα
                           </a>
                         </li>
@@ -122,7 +122,7 @@
           </li>
           <!-- TODO:: ALOW OPERATORS TO EDIT PROJECTS WHEN DECIDED -->
           <li *ngIf="isAdmin" class="uk-parent" [routerLinkActive]="['uk-active']">
-            <a [routerLink]="['resources', 'projects']">
+            <a [routerLink]="['resources', 'projects']" [queryParams] = "{ page: 0, itemsPerPage: 10 }">
               Έργα
             </a>
           </li>

@@ -101,9 +101,6 @@ export class AdminEditResourcePageComponent implements OnInit {
                 this.showSpinner = false;
             }
         );
-
-        // this.currentResource = project;
-        // this.resource = new AnchorItem (EditProjectComponent, [this.executives, this.institutes, this.currentResource]);
     }
 
     getInstituteById() {
@@ -141,12 +138,6 @@ export class AdminEditResourcePageComponent implements OnInit {
     }
 
     getDataLists() {
-        /* using mock data */
-        /*this.executives = executives;
-        this.institutes = institutes;
-        this.organizations = organizations;
-        this.getCurrentResource();*/
-
         this.errorMessage = '';
         this.showSpinner = true;
         this.resourcesService.getAllInstitutes().pipe(

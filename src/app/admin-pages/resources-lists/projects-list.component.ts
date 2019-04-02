@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Project } from '../../domain/operation';
 import { ManageProjectService } from '../../services/manage-project.service';
 import { SearchResults } from '../../domain/extraClasses';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'arc-projects-list',
@@ -13,14 +14,28 @@ export class ProjectsListComponent implements OnInit {
     searchResults: SearchResults<Project>;
     projects: Project[] = [];
 
-    itemsPerPage = 10;
-    currentPage = 0;
+    itemsPerPage: number;
+    currentPage: number;
     totalPages = 0;
 
-    constructor(private projectService: ManageProjectService) {}
+    constructor(private projectService: ManageProjectService,
+                private route: ActivatedRoute,
+                private router: Router) {}
 
     ngOnInit() {
-        this.getProjects();
+        this.route.queryParamMap.subscribe(
+          params => {
+            this.itemsPerPage = 10;
+            this.currentPage = 0;
+            if (params.has('page')) {
+              this.currentPage = +params.get('page') - 1;
+            }
+            if (params.has('itemsPerPage')) {
+              this.itemsPerPage = +params.get('itemsPerPage');
+            }
+            this.getProjects();
+          }
+        );
     }
 
     getProjects() {
@@ -49,20 +64,32 @@ export class ProjectsListComponent implements OnInit {
     goToPreviousPage() {
         if (this.currentPage > 0) {
             this.currentPage--;
-            this.getProjects();
+            // this.getProjects();
+            this.createSearchUrl();
         }
     }
 
     goToNextPage() {
         if ( (this.currentPage + 1) < this.totalPages) {
             this.currentPage++;
-            this.getProjects();
+            // this.getProjects();
+            this.createSearchUrl();
         }
     }
 
     getItemsPerPage(event: any) {
         this.itemsPerPage = event.target.value;
         this.currentPage = 0;
-        this.getProjects();
+        // this.getProjects();
+        this.createSearchUrl();
     }
+
+    createSearchUrl() {
+      const url = new URLSearchParams();
+      url.set('page', (this.currentPage + 1).toString());
+      url.set('itemsPerPage', this.itemsPerPage.toString());
+
+      this.router.navigateByUrl(`/resources/projects?${url.toString()}`);
+    }
+
 }
