@@ -10,7 +10,6 @@ import { EditDelegateComponent } from './edit-delegate.component';
     styleUrls: ['./edit-resources.component.scss']
 })
 export class EditPoiComponent extends EditResourcesComponent implements OnInit, OnChanges {
-    showForm: boolean;
     newPOIMode: boolean;
     executives: Executive[] = [];
     delegateFormsData: any[] = [];
@@ -57,11 +56,12 @@ export class EditPoiComponent extends EditResourcesComponent implements OnInit, 
                     );
                     this.resourceForm.get('delegates').setValue(['']);
                 }
-                // this.showForm = true;
                 this.resourceForm.updateValueAndValidity();
-            } else {
+            } /*
+            TODO:: CHECK IF THIS WORKS !!!
+            else {
                 this.addDelegate();
-            }
+            }*/
         }
         this.resourceForm.get('firstname').disable();
         this.resourceForm.get('lastname').disable();
@@ -97,7 +97,6 @@ export class EditPoiComponent extends EditResourcesComponent implements OnInit, 
         this.resourceForm.get('firstname').disable();
         this.resourceForm.get('lastname').disable();
       }
-      // this.resourceForm.updateValueAndValidity();
     }
 
     inNewPOIMode(newPOIMode: boolean) {
