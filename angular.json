@@ -80,7 +80,7 @@
           "options": {
             "browserTarget": "arc-expenses-admin:build",
             "port": 4200,
-            "host": "aleka.athenarc.gr"
+            "host": "koulis.athenarc.gr"
           },
           "configurations": {
             "production": {
