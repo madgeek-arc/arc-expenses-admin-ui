@@ -57,11 +57,7 @@ export class EditPoiComponent extends EditResourcesComponent implements OnInit, 
                     this.resourceForm.get('delegates').setValue(['']);
                 }
                 this.resourceForm.updateValueAndValidity();
-            } /*
-            TODO:: CHECK IF THIS WORKS !!!
-            else {
-                this.addDelegate();
-            }*/
+            }
         }
         this.resourceForm.get('firstname').disable();
         this.resourceForm.get('lastname').disable();
