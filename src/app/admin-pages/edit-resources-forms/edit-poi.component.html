@@ -26,7 +26,7 @@
             <!--<label class="uk-countdown-label" for="email_{{ id }}">Email (*)</label>-->
             <div class="">
                 <div class="uk-width-1-1">
-                    <input type="email" placeholder="Email (*)" id="email_{{ id }}" class="uk-input"
+                    <input type="email" placeholder="Email (*)" id="email_{{ id }}" class="uk-input" autocomplete="off"
                            formControlName="email" (keyup)="updateSearchTerm()" />
                     <div *ngIf="!newPOIMode" class="uk-comment-body uk-text-small uk-text-muted">
                         <i>Ξεκινήστε να γράφετε το email του υπευθύνου και επιλέξτε τον από την λίστα που θα εμφανιστεί.</i>

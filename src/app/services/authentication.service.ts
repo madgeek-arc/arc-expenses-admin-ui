@@ -122,8 +122,8 @@ export class AuthenticationService {
                           if ( (this.getUserProp('email') == null) ) {
                             this.logout();
 
-                          } else if ( (this.getUserProp('firstname') === null) ||
-                            (this.getUserProp('lastname') === null) ) {
+                          } else if ((this.getUserProp('firstname') === null) ||
+                                     (this.getUserProp('lastname') === null) ) {
 
                             console.log('in tryLogin navigating to sign-up');
                             this.router.navigate(['/sign-up']);

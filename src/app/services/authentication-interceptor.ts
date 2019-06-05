@@ -6,7 +6,6 @@ import {
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
