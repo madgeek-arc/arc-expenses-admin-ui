@@ -38,13 +38,6 @@ export class ManageProjectService {
         return this.http.get<SearchResults<Project>>(url, headerOptions);
     }
 
-
-    getAllProjectsNames(): Observable<Vocabulary[]> {
-        const url = `${this.apiUrl}getAllProjectNames`;
-        console.log(`calling ${url}`);
-        return this.http.get<Vocabulary[]>(url, headerOptions);
-    }
-
     getProjectById(projectId: string): Observable<Project> {
         const url = `${this.apiUrl}getById/${projectId}`;
         console.log(`calling ${url}`);

@@ -166,7 +166,13 @@ export class EditProjectComponent extends EditResourcesComponent implements OnIn
         this.resourceForm.patchValue({operator: operators});
         this.resourceForm.patchValue({totalCost: +this.resourceForm.get('totalCost').value});
         if (this.resourceForm.valid) {
-            return this.resourceForm.getRawValue();
+            if (this.checkDates() === null) {
+              return this.resourceForm.getRawValue();
+            } else {
+              this.errorMessage = 'Παρακαλώ ελέγξτε τις ημερομηνίες που συμπληρώσατε.';
+              window.scrollTo(1, 1);
+              return '';
+            }
         } else {
             this.errorMessage = 'Παρακαλώ συμπληρώστε όλα τα απαιτούμενα πεδία.';
             window.scrollTo(1, 1);
@@ -189,28 +195,25 @@ export class EditProjectComponent extends EditResourcesComponent implements OnIn
     }
 
     addProject() {
-        // const project = this.exportFormValue();
-        // if (project !== '') {
-            this.errorMessage = '';
-            this.successMessage = '';
-            this.showSpinner = true;
-            this.projectService.addProject(this.exportedForm).subscribe(
-                proj => console.log(JSON.stringify(proj)),
-                err => {
-                    console.log(err);
-                    this.errorMessage = 'Παρουσιάστηκε πρόβλημα κατά την αποθήκευση των αλλαγών.';
-                    window.scrollTo(1, 1);
-                    this.showSpinner = false;
-                },
-                () => {
-                    this.errorMessage = '';
-                    this.successMessage = 'Το έργο προστέθηκε επιτυχώς.';
-                    this.showSpinner = false;
-                    window.scrollTo(1, 1);
-                    window.location.href = 'resources/projects';
-                }
-            );
-        // }
+        this.errorMessage = '';
+        this.successMessage = '';
+        this.showSpinner = true;
+        this.projectService.addProject(this.exportedForm).subscribe(
+            proj => console.log(JSON.stringify(proj)),
+            err => {
+                console.log(err);
+                this.errorMessage = 'Παρουσιάστηκε πρόβλημα κατά την αποθήκευση των αλλαγών.';
+                window.scrollTo(1, 1);
+                this.showSpinner = false;
+            },
+            () => {
+                this.errorMessage = '';
+                this.successMessage = 'Το έργο προστέθηκε επιτυχώς.';
+                this.showSpinner = false;
+                window.scrollTo(1, 1);
+                window.location.href = 'resources/projects';
+            }
+        );
     }
 
     updateProject() {
@@ -236,6 +239,13 @@ export class EditProjectComponent extends EditResourcesComponent implements OnIn
                 }
             );
         }
+    }
+
+    checkDates() {
+      if (this.resourceForm.get('startDate').value > this.resourceForm.get('endDate').value) {
+        return 'invalid';
+      }
+      return null;
     }
 
 }

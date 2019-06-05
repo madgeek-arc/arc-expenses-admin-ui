@@ -56,9 +56,13 @@
             <table class="uk-table uk-table-hover uk-table-divider">
                 <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Ακρώνυμο</th>
-                    <th>Ινστιτουτο / Μοναδα</th>
+                    <th>ID</th>
+                    <th>ΑΚΡΩΝΥΜΟ</th>
+                    <th>ΙΝΣΤΙΤΟΥΤΟ</th>
+<!--                    <th>ΕΝΑΡΞΗ</th>-->
+<!--                    <th>ΟΛΟΚΛΗΡΩΣΗ</th>-->
+                    <th>ΕΠ.ΥΠΕΥΘΥΝΟΣ</th>
+                    <th>ΧΕΙΡΙΣΤΕΣ</th>
                 </tr>
                 <tr class="uk-link" *ngFor="let proj of projects"
                     routerLink="/resources/projects/edit/{{ proj.id }}"
@@ -66,6 +70,14 @@
                     <td>{{ proj.id }}</td>
                     <td>{{ proj.acronym }}</td>
                     <td>{{ proj.instituteId }}</td>
+<!--                    <td>{{ proj.startDate }}</td>-->
+<!--                    <td>{{ proj.endDate }}</td>-->
+                    <td>{{ proj.scientificCoordinator.firstname + ' ' + proj.scientificCoordinator.lastname }}</td>
+                    <td>
+                      <span *ngFor="let op of proj.operator; let i = index">
+                        <br *ngIf="i > 0">{{ op.firstname + ' ' + op.lastname }}
+                      </span>
+                    </td>
                 </tr>
                 </thead>
             </table>
