@@ -242,7 +242,8 @@ export class EditProjectComponent extends EditResourcesComponent implements OnIn
     }
 
     checkDates() {
-      if (this.resourceForm.get('startDate').value > this.resourceForm.get('endDate').value) {
+      if (this.resourceForm.get('startDate').value && this.resourceForm.get('endDate').value &&
+          (this.resourceForm.get('startDate').value > this.resourceForm.get('endDate').value)) {
         return 'invalid';
       }
       return null;
