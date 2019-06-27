@@ -49,6 +49,78 @@
                 </div>
             </div>
         </div>
+        <div class="uk-margin">
+          <label class="uk-form-label">Διατάκτης (*)</label>
+          <div class="uk-form-controls">
+            <div *ngIf="!diataktisFormData" class="uk-width-1-1">
+              <div>
+                <a class="uk-button-small" (click)="addPOI('diataktisFormData')">
+                  Προσθήκη διατάκτη
+                </a>
+              </div>
+            </div>
+            <div *ngIf="diataktisFormData" class="uk-width-1-1">
+              <div>
+                <arc-edit-poi #diataktisForm [id]="id + '_diataktis'"
+                              [data]="diataktisFormData"></arc-edit-poi>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="uk-margin">
+          <label class="uk-form-label">Υπεύθυνος Διαύγειας (*)</label>
+          <div class="uk-form-controls">
+            <div *ngIf="!diaugeiaFormData" class="uk-width-1-1">
+              <div>
+                <a class="uk-button-small" (click)="addPOI('diaugeiaFormData')">
+                  Προσθήκη υπευθύνου
+                </a>
+              </div>
+            </div>
+            <div *ngIf="diaugeiaFormData" class="uk-width-1-1">
+              <div>
+                <arc-edit-poi #diaugeiaForm
+                              [id]="id + '_diaugeia'" [data]="diaugeiaFormData"></arc-edit-poi>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="uk-margin">
+          <label class="uk-form-label">Υπεύθυνος Γραφείου Προμηθειών (*)</label>
+          <div class="uk-form-controls">
+            <div *ngIf="!suppliesOfficeFormData" class="uk-width-1-1">
+              <div>
+                <a class="uk-button-small" (click)="addPOI('suppliesOfficeFormData')">
+                  Προσθήκη υπευθύνου
+                </a>
+              </div>
+            </div>
+            <div *ngIf="suppliesOfficeFormData" class="uk-width-1-1">
+              <div>
+                <arc-edit-poi #suppliesOfficeForm [id]="id + '_supplies'"
+                              [data]="suppliesOfficeFormData"></arc-edit-poi>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="uk-margin">
+          <label class="uk-form-label">Υπεύθυνος Ταξιδίων (*)</label>
+          <div class="uk-form-controls">
+            <div *ngIf="!travelManagerFormData" class="uk-width-1-1">
+              <div>
+                <a class="uk-button-small" (click)="addPOI('travelManagerFormData')">
+                  Προσθήκη υπευθύνου
+                </a>
+              </div>
+            </div>
+            <div *ngIf="travelManagerFormData" class="uk-width-1-1">
+              <div>
+                <arc-edit-poi #travelManagerForm [id]="id + '_travel'"
+                              [data]="travelManagerFormData"></arc-edit-poi>
+              </div>
+            </div>
+          </div>
+        </div>
         <hr>
         <div class="uk-margin">
             <label class="uk-form-label uk-text-uppercase">Λογιστήριο</label>
@@ -111,78 +183,6 @@
             </div>
         </div>
         <hr>
-        <div class="uk-margin">
-            <label class="uk-form-label">Υπεύθυνος Διαύγειας (*)</label>
-            <div class="uk-form-controls">
-                <div *ngIf="!diaugeiaFormData" class="uk-width-1-1">
-                    <div>
-                        <a class="uk-button-small" (click)="addPOI('diaugeiaFormData')">
-                            Προσθήκη υπευθύνου
-                        </a>
-                    </div>
-                </div>
-                <div *ngIf="diaugeiaFormData" class="uk-width-1-1">
-                    <div>
-                        <arc-edit-poi #diaugeiaForm
-                                      [id]="id + '_diaugeia'" [data]="diaugeiaFormData"></arc-edit-poi>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="uk-margin">
-            <label class="uk-form-label">Υπεύθυνος Γραφείου Προμηθειών (*)</label>
-            <div class="uk-form-controls">
-                <div *ngIf="!suppliesOfficeFormData" class="uk-width-1-1">
-                    <div>
-                        <a class="uk-button-small" (click)="addPOI('suppliesOfficeFormData')">
-                            Προσθήκη υπευθύνου
-                        </a>
-                    </div>
-                </div>
-                <div *ngIf="suppliesOfficeFormData" class="uk-width-1-1">
-                    <div>
-                        <arc-edit-poi #suppliesOfficeForm [id]="id + '_supplies'"
-                                      [data]="suppliesOfficeFormData"></arc-edit-poi>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="uk-margin">
-            <label class="uk-form-label">Υπεύθυνος Ταξιδίων (*)</label>
-            <div class="uk-form-controls">
-                <div *ngIf="!travelManagerFormData" class="uk-width-1-1">
-                    <div>
-                        <a class="uk-button-small" (click)="addPOI('travelManagerFormData')">
-                            Προσθήκη υπευθύνου
-                        </a>
-                    </div>
-                </div>
-                <div *ngIf="travelManagerFormData" class="uk-width-1-1">
-                    <div>
-                        <arc-edit-poi #travelManagerForm [id]="id + '_travel'"
-                                      [data]="travelManagerFormData"></arc-edit-poi>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="uk-margin">
-            <label class="uk-form-label">Διατάκτης (*)</label>
-            <div class="uk-form-controls">
-                <div *ngIf="!diataktisFormData" class="uk-width-1-1">
-                    <div>
-                        <a class="uk-button-small" (click)="addPOI('diataktisFormData')">
-                            Προσθήκη διατάκτη
-                        </a>
-                    </div>
-                </div>
-                <div *ngIf="diataktisFormData" class="uk-width-1-1">
-                    <div>
-                        <arc-edit-poi #diataktisForm [id]="id + '_diataktis'"
-                                      [data]="diataktisFormData"></arc-edit-poi>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="uk-margin">
             <button class="uk-button uk-button-primary" (click)="saveChanges()">Αποθήκευση</button>

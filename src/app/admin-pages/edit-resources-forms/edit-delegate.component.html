@@ -25,7 +25,7 @@
         <div class="">
             <!--<label class="uk-form-label" for="email_{{ id }}">Email (*)</label>-->
             <div class="">
-                <input type="email" placeholder="Email (*)" id="email_{{ id }}" class="uk-input"
+                <input type="email" placeholder="Email (*)" id="email_{{ id }}" class="uk-input" autocomplete="off"
                        formControlName="email" (keyup)="updateSearchTerm()" />
             </div>
             <div *ngIf="!newDelegateMode"  class="uk-comment-body uk-text-small uk-text-muted">
