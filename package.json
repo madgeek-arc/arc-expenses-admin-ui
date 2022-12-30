@@ -29,7 +29,7 @@
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.12.2",
+    "@angular-devkit/build-angular": "^15.0.4",
     "@angular/cli": "^7.1.4",
     "@angular/compiler-cli": "^7.2.0",
     "@angular/language-service": "^7.2.0",
@@ -49,7 +49,7 @@
     "ts-node": "~7.0.1",
     "tslint": "^5.12.0",
     "typescript": "3.1.6",
-    "webpack": "^4.28.3",
+    "webpack": "^5.75.0",
     "webpack-dev-server": "^3.1.14"
   },
   "resolutions": {
